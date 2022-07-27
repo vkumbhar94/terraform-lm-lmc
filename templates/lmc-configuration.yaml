@@ -1,0 +1,15 @@
+global:
+  accessID: ${lmc.global.accessID}
+  accessKey: ${lmc.global.accessKey}
+  account: ${lmc.global.account}
+argus:
+  clusterName: ${lmc.argus.clusterName}
+  %{ if lmc.kube-state-metrics != null }
+  kube-state-metrics:
+    %{ if lmc.kube-state-metrics.enabled != true }
+    enabled: ${lmc.kube-state-metrics.enabled}
+    %{ endif }
+  %{ endif }
+  %{ if lmc.collectorset-controller != null}
+  collectorset-controller: ${lmc.collectorset-controller}
+  %{ endif }

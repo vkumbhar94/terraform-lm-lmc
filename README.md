@@ -1,1 +1,1 @@
-# terraform-lm-lmc
+# lmc-tf-modules
