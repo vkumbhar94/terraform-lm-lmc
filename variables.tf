@@ -31,7 +31,7 @@ locals {
 }
 
 variable "namespace" {
-  default = "tf-lmc"
+  default = "logicmonitor"
   type    = string
 }
 
