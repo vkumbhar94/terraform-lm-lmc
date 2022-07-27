@@ -52,7 +52,7 @@ variable "deploy-kube-state-metrics" {
 module "lmc" {
   depends_on                 = [kubernetes_namespace.ns]
   source                     = "vkumbhar94/lmc/lm"
-  version                    = "0.1.0-alpha01"
+  version                    = "0.1.0-alpha03"
   lm-container-configuration = {
     global = {
       accessID  = var.accessID
