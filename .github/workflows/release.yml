@@ -1,0 +1,25 @@
+name: Release
+
+on: 
+  push:
+    branch:
+    - main
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@v2
+    - id: tagname
+      run: |
+        tagName=$(cat version)
+        echo "::set-output name=tagName::$tagName"
+    - uses: ncipollo/release-action@v1
+      with:
+        token: ${{ secrets.GH_TOKEN }}
+        commit: main
+        tag: ${{ steps.tagname.outputs.tagName }}
+
