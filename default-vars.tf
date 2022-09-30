@@ -13,9 +13,6 @@ variable "timeout" {
   default = 600
   type    = number
 }
-variable "lm_container_version" {
-  type = string
-}
 variable "repository" {
   default = "https://logicmonitor.github.io/helm-charts"
   type    = string
