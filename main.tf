@@ -1,5 +1,4 @@
 terraform {
-  # experiments = [module_variable_optional_attrs]
   required_providers {
     helm = {
       source  = "hashicorp/helm"
@@ -15,7 +14,7 @@ terraform {
 
 locals {
   lmc_rendered = templatefile("${path.module}/templates/lmc-configuration.yaml", {
-    lmc = local.lm-container-configuration
+    lmc = var.lm-container-configuration
   })
 }
 
