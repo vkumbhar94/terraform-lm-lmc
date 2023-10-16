@@ -1,24 +1,9 @@
 variable "lm-container-configuration" {
   type = object({
 
-    argus = object({
-
-      clusterName = string
-
-      clusterTreeParentID = optional(number)
-
-      enableLegacyResourceTree = optional(bool)
-
-      affinity = optional(any)
+    collectorset-controller = optional(object({
 
       priorityClassName = optional(string)
-
-      rbac = optional(object({
-
-        create = optional(bool)
-
-      }))
-      accessKey = optional(string)
 
       resources = optional(object({
 
@@ -27,149 +12,47 @@ variable "lm-container-configuration" {
         requests = optional(any)
 
       }))
-      daemons = optional(object({
-
-        lmResourceSweeper = optional(object({
-
-          interval = optional(string)
-
-        }))
-        lmCacheSync = optional(object({
-
-          interval = optional(string)
-
-        }))
-        worker = optional(object({
-
-          poolSize = optional(number)
-
-        }))
-        watcher = optional(object({
-
-          bulkSyncInterval = optional(string)
-
-          runner = optional(object({
-
-            backPressureQueueSizePerRunner = optional(number)
-
-            poolSize = optional(number)
-
-          }))
-          sysIpsWaitTimeout = optional(string)
-
-        }))
-      }))
-      selfMonitor = optional(object({
-
-        enable = optional(bool)
-
-        port = optional(number)
-
-      }))
-      collector = optional(object({
-
-        proxy = optional(object({
-
-          pass = optional(string)
-
-          url = optional(string)
-
-          user = optional(string)
-
-        }))
-        labels = optional(any)
-
-        version = optional(number)
-
-        image = optional(object({
-
-          registry = optional(string)
-
-          repository = optional(string)
-
-          name = optional(string)
-
-          tag = optional(string)
-
-          pullPolicy = optional(string)
-
-        }))
-        annotations = optional(any)
-
-        env = optional(any)
-
-        disableLightweightCollector = optional(bool)
-
-        allowMultipleCollectorsOnNode = optional(bool)
-
-        useEA = optional(bool)
-
-        lm = optional(object({
-
-          escalationChainID = optional(number)
-
-          groupID = optional(number)
-
-        }))
-        probe = optional(object({
-
-          enabled = optional(bool)
-
-          startup = optional(object({
-
-            failureThreshold = optional(number)
-
-            periodSeconds = optional(number)
-
-          }))
-          liveness = optional(object({
-
-            periodSeconds = optional(number)
-
-            failureThreshold = optional(number)
-
-          }))
-          readiness = optional(object({
-
-            failureThreshold = optional(number)
-
-            periodSeconds = optional(number)
-
-          }))
-        }))
-        collectorConf = optional(object({
-
-          agentConf = optional(any)
-
-        }))
-        size = optional(string)
-
-        statefulsetSpec = optional(object({
-
-          template = optional(object({
-
-            spec = optional(any)
-
-          }))
-        }))
-        replicas = optional(number)
-
-      }))
-      account = optional(string)
-
-      tolerations = optional(any)
+      accessKey = optional(string)
 
       log = optional(object({
 
         level = optional(string)
 
       }))
+      image = optional(object({
+
+        repository = optional(string)
+
+        name = optional(string)
+
+        pullPolicy = optional(string)
+
+        tag = optional(string)
+
+        registry = optional(string)
+
+      }))
+      affinity = optional(any)
+
       enabled = optional(bool)
 
-      accessID = optional(string)
+      nodeSelector = optional(any)
 
-      resourceContainerID = optional(number)
+      labels = optional(any)
 
+      annotations = optional(any)
+
+      tolerations = optional(any)
+
+      account = optional(string)
+
+      fullnameOverride = optional(string)
+
+      serviceAccount = optional(object({
+
+        create = optional(bool)
+
+      }))
       proxy = optional(object({
 
         url = optional(string)
@@ -179,44 +62,106 @@ variable "lm-container-configuration" {
         pass = optional(string)
 
       }))
-      debug = optional(object({
+      accessID = optional(string)
 
-        profiling = optional(object({
+      nameOverride = optional(string)
 
-          enable = optional(bool)
+      rbac = optional(object({
 
-        }))
+        create = optional(bool)
+
       }))
-      probe = optional(object({
+      ignoreSSL = optional(bool)
 
-        startup = optional(object({
+    }))
+    lm-logs = object({
 
-          failureThreshold = optional(number)
+      clusterName = string
 
-          periodSeconds = optional(number)
+      labels = optional(any)
 
-        }))
-        liveness = optional(object({
+      nameOverride = optional(string)
 
-          failureThreshold = optional(number)
+      lm_company_name = optional(string)
 
-          periodSeconds = optional(number)
+      lm_access_key = optional(string)
 
-        }))
-        readiness = optional(object({
+      image = object({
 
-          failureThreshold = optional(number)
+        repository = optional(string)
 
-          periodSeconds = optional(number)
+        pullPolicy = optional(string)
 
-        }))
-        enabled = optional(bool)
+        tag = optional(string)
+
+      })
+      fullnameOverride = optional(string)
+
+      env = optional(any)
+
+      resources = optional(object({
+
+        limits = optional(any)
+
+        requests = optional(any)
 
       }))
       nodeSelector = optional(any)
 
-      ignoreSSL = optional(bool)
+      affinity = optional(any)
 
+      enabled = optional(bool)
+
+      annotations = optional(any)
+
+      lm_access_id = optional(string)
+
+    })
+    argus = object({
+
+      serviceAccount = optional(object({
+
+        create = optional(bool)
+
+      }))
+      nodeSelector = optional(any)
+
+      tolerations = optional(any)
+
+      collectorsetcontroller = optional(object({
+
+        address = optional(string)
+
+        port = optional(number)
+
+      }))
+      nameOverride = optional(string)
+
+      image = optional(object({
+
+        registry = optional(string)
+
+        repository = optional(string)
+
+        name = optional(string)
+
+        pullPolicy = optional(string)
+
+        tag = optional(string)
+
+      }))
+      rbac = optional(object({
+
+        create = optional(bool)
+
+      }))
+      labels = optional(any)
+
+      log = optional(object({
+
+        level = optional(string)
+
+      }))
       lm = optional(object({
 
         opsNotes = optional(object({
@@ -260,9 +205,24 @@ variable "lm-container-configuration" {
           }))
         }))
       }))
-      labels = optional(any)
+      imagePullSecrets = optional(any)
 
-      annotations = optional(any)
+      account = optional(string)
+
+      clusterName = string
+
+      affinity = optional(any)
+
+      priorityClassName = optional(string)
+
+      resources = optional(object({
+
+        limits = optional(any)
+
+        requests = optional(any)
+
+      }))
+      resourceContainerID = optional(number)
 
       monitoring = optional(object({
 
@@ -279,179 +239,213 @@ variable "lm-container-configuration" {
 
         }))
       }))
-      nameOverride = optional(string)
+      probe = optional(object({
 
-      image = optional(object({
+        enabled = optional(bool)
 
-        registry = optional(string)
+        startup = optional(object({
 
-        repository = optional(string)
+          periodSeconds = optional(number)
 
-        name = optional(string)
+          failureThreshold = optional(number)
 
-        pullPolicy = optional(string)
+        }))
+        liveness = optional(object({
 
-        tag = optional(string)
+          failureThreshold = optional(number)
 
+          periodSeconds = optional(number)
+
+        }))
+        readiness = optional(object({
+
+          failureThreshold = optional(number)
+
+          periodSeconds = optional(number)
+
+        }))
       }))
-      collectorsetcontroller = optional(object({
+      enabled = optional(bool)
 
-        address = optional(string)
-
-        port = optional(number)
-
-      }))
-      filters = optional(any)
-
-      fullnameOverride = optional(string)
-
-      serviceAccount = optional(object({
-
-        create = optional(bool)
-
-      }))
-      imagePullSecrets = optional(any)
-
-    })
-    collectorset-controller = optional(object({
+      clusterTreeParentID = optional(number)
 
       annotations = optional(any)
 
-      ignoreSSL = optional(bool)
+      collector = optional(object({
 
-      log = optional(object({
+        labels = optional(any)
 
-        level = optional(string)
+        replicas = optional(number)
 
+        useEA = optional(bool)
+
+        lm = optional(object({
+
+          groupID = optional(number)
+
+          escalationChainID = optional(number)
+
+        }))
+        annotations = optional(any)
+
+        allowMultipleCollectorsOnNode = optional(bool)
+
+        version = optional(number)
+
+        proxy = optional(object({
+
+          url = optional(string)
+
+          user = optional(string)
+
+          pass = optional(string)
+
+        }))
+        disableLightweightCollector = optional(bool)
+
+        collectorConf = optional(object({
+
+          agentConf = optional(any)
+
+        }))
+        size = optional(string)
+
+        image = optional(object({
+
+          name = optional(string)
+
+          tag = optional(string)
+
+          pullPolicy = optional(string)
+
+          registry = optional(string)
+
+          repository = optional(string)
+
+        }))
+        env = optional(any)
+
+        statefulsetSpec = optional(object({
+
+          template = optional(object({
+
+            spec = optional(any)
+
+          }))
+        }))
+        probe = optional(object({
+
+          enabled = optional(bool)
+
+          startup = optional(object({
+
+            failureThreshold = optional(number)
+
+            periodSeconds = optional(number)
+
+          }))
+          liveness = optional(object({
+
+            failureThreshold = optional(number)
+
+            periodSeconds = optional(number)
+
+          }))
+          readiness = optional(object({
+
+            failureThreshold = optional(number)
+
+            periodSeconds = optional(number)
+
+          }))
+        }))
       }))
-      rbac = optional(object({
-
-        create = optional(bool)
-
-      }))
-      affinity = optional(any)
-
-      image = optional(object({
-
-        name = optional(string)
-
-        pullPolicy = optional(string)
-
-        tag = optional(string)
-
-        registry = optional(string)
-
-        repository = optional(string)
-
-      }))
-      priorityClassName = optional(string)
-
-      tolerations = optional(any)
-
-      accessID = optional(string)
-
-      fullnameOverride = optional(string)
-
-      serviceAccount = optional(object({
-
-        create = optional(bool)
-
-      }))
-      labels = optional(any)
-
-      accessKey = optional(string)
+      enableLegacyResourceTree = optional(bool)
 
       proxy = optional(object({
-
-        url = optional(string)
 
         user = optional(string)
 
         pass = optional(string)
 
-      }))
-      nodeSelector = optional(any)
-
-      resources = optional(object({
-
-        limits = optional(any)
-
-        requests = optional(any)
+        url = optional(string)
 
       }))
-      enabled = optional(bool)
-
-      account = optional(string)
-
-      nameOverride = optional(string)
-
-    }))
-    lm-logs = object({
-
-      fullnameOverride = optional(string)
-
-      resources = optional(object({
-
-        limits = optional(any)
-
-        requests = optional(any)
-
-      }))
-      clusterName = string
-
-      annotations = optional(any)
-
-      nameOverride = optional(string)
-
-      lm_company_name = optional(string)
-
-      nodeSelector = optional(any)
-
-      enabled = optional(bool)
-
-      labels = optional(any)
-
-      env = optional(any)
-
-      affinity = optional(any)
-
-      image = object({
-
-        repository = optional(string)
-
-        pullPolicy = optional(string)
-
-        tag = optional(string)
-
-      })
-      lm_access_id = optional(string)
-
-      lm_access_key = optional(string)
-
-    })
-    global = optional(object({
-
-      account = optional(string)
-
-      userDefinedSecret = optional(string)
-
-      clusterName = string
+      ignoreSSL = optional(bool)
 
       accessID = optional(string)
 
       accessKey = optional(string)
 
-      collectorsetServiceNameSuffix = optional(string)
+      daemons = optional(object({
+
+        lmResourceSweeper = optional(object({
+
+          interval = optional(string)
+
+        }))
+        lmCacheSync = optional(object({
+
+          interval = optional(string)
+
+        }))
+        worker = optional(object({
+
+          poolSize = optional(number)
+
+        }))
+        watcher = optional(object({
+
+          bulkSyncInterval = optional(string)
+
+          runner = optional(object({
+
+            poolSize = optional(number)
+
+            backPressureQueueSizePerRunner = optional(number)
+
+          }))
+          sysIpsWaitTimeout = optional(string)
+
+        }))
+      }))
+      filters = optional(any)
+
+      selfMonitor = optional(object({
+
+        enable = optional(bool)
+
+        port = optional(number)
+
+      }))
+      debug = optional(object({
+
+        profiling = optional(object({
+
+          enable = optional(bool)
+
+        }))
+      }))
+      fullnameOverride = optional(string)
+
+    })
+    global = optional(object({
 
       image = object({
 
         repository = optional(string)
 
       })
+      collectorsetServiceNameSuffix = optional(string)
+
+      userDefinedSecret = optional(string)
+
+      clusterName = string
+
     }))
   })
 }
 variable "lm_container_version" {
   type    = string
-  default = "5.2.0-rt01"
+  default = "5.3.0-rc01"
 }
