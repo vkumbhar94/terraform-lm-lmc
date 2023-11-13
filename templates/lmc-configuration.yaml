@@ -1,59 +1,5 @@
 
 argus:  
-  %{ if lmc.argus.account != null }
-  account: ${lmc.argus.account}
-  %{ endif }
-  clusterName:   ${lmc.argus.clusterName}
-  %{ if lmc.argus.resources != null }
-  resources:  
-    %{ if lmc.argus.resources.limits != null }
-    limits:
-      ${yamlencode(lmc.argus.resources.limits)}
-    %{ endif }
-    %{ if lmc.argus.resources.requests != null }
-    requests:
-      ${yamlencode(lmc.argus.resources.requests)}
-    %{ endif }
-  %{ endif }
-  %{ if lmc.argus.daemons != null }
-  daemons:  
-    %{ if lmc.argus.daemons.lmCacheSync != null }
-    lmCacheSync:  
-      %{ if lmc.argus.daemons.lmCacheSync.interval != null }
-      interval: ${lmc.argus.daemons.lmCacheSync.interval}
-      %{ endif }
-    %{ endif }
-    %{ if lmc.argus.daemons.worker != null }
-    worker:  
-      %{ if lmc.argus.daemons.worker.poolSize != null }
-      poolSize: ${lmc.argus.daemons.worker.poolSize}
-      %{ endif }
-    %{ endif }
-    %{ if lmc.argus.daemons.watcher != null }
-    watcher:  
-      %{ if lmc.argus.daemons.watcher.bulkSyncInterval != null }
-      bulkSyncInterval: ${lmc.argus.daemons.watcher.bulkSyncInterval}
-      %{ endif }
-      %{ if lmc.argus.daemons.watcher.runner != null }
-      runner:  
-        %{ if lmc.argus.daemons.watcher.runner.poolSize != null }
-        poolSize: ${lmc.argus.daemons.watcher.runner.poolSize}
-        %{ endif }
-        %{ if lmc.argus.daemons.watcher.runner.backPressureQueueSizePerRunner != null }
-        backPressureQueueSizePerRunner: ${lmc.argus.daemons.watcher.runner.backPressureQueueSizePerRunner}
-        %{ endif }
-      %{ endif }
-      %{ if lmc.argus.daemons.watcher.sysIpsWaitTimeout != null }
-      sysIpsWaitTimeout: ${lmc.argus.daemons.watcher.sysIpsWaitTimeout}
-      %{ endif }
-    %{ endif }
-    %{ if lmc.argus.daemons.lmResourceSweeper != null }
-    lmResourceSweeper:  
-      %{ if lmc.argus.daemons.lmResourceSweeper.interval != null }
-      interval: ${lmc.argus.daemons.lmResourceSweeper.interval}
-      %{ endif }
-    %{ endif }
-  %{ endif }
   %{ if lmc.argus.monitoring != null }
   monitoring:  
     %{ if lmc.argus.monitoring.disable != null }
@@ -75,54 +21,78 @@ argus:
       %{ endif }
     %{ endif }
   %{ endif }
-  %{ if lmc.argus.selfMonitor != null }
-  selfMonitor:  
-    %{ if lmc.argus.selfMonitor.enable != null }
-    enable: ${lmc.argus.selfMonitor.enable}
-    %{ endif }
-    %{ if lmc.argus.selfMonitor.port != null }
-    port: ${lmc.argus.selfMonitor.port}
-    %{ endif }
-  %{ endif }
-  %{ if lmc.argus.collector != null }
-  collector:  
-    %{ if lmc.argus.collector.allowMultipleCollectorsOnNode != null }
-    allowMultipleCollectorsOnNode: ${lmc.argus.collector.allowMultipleCollectorsOnNode}
-    %{ endif }
-    %{ if lmc.argus.collector.replicas != null }
-    replicas: ${lmc.argus.collector.replicas}
-    %{ endif }
-    %{ if lmc.argus.collector.env != null }
-    env:
-      ${yamlencode(lmc.argus.collector.env)}
-    %{ endif }
-    %{ if lmc.argus.collector.annotations != null }
-    annotations:
-      ${yamlencode(lmc.argus.collector.annotations)}
-    %{ endif }
-    %{ if lmc.argus.collector.statefulsetSpec != null }
-    statefulsetSpec:  
-      %{ if lmc.argus.collector.statefulsetSpec.template != null }
-      template:  
-        %{ if lmc.argus.collector.statefulsetSpec.template.spec != null }
-        spec:
-          ${yamlencode(lmc.argus.collector.statefulsetSpec.template.spec)}
+  %{ if lmc.argus.lm != null }
+  lm:  
+    %{ if lmc.argus.lm.resourceGroup != null }
+    resourceGroup:  
+      %{ if lmc.argus.lm.resourceGroup.extraProps != null }
+      extraProps:  
+        %{ if lmc.argus.lm.resourceGroup.extraProps.cluster != null }
+        cluster: ${lmc.argus.lm.resourceGroup.extraProps.cluster}
+        %{ endif }
+        %{ if lmc.argus.lm.resourceGroup.extraProps.nodes != null }
+        nodes: ${lmc.argus.lm.resourceGroup.extraProps.nodes}
+        %{ endif }
+        %{ if lmc.argus.lm.resourceGroup.extraProps.etcd != null }
+        etcd: ${lmc.argus.lm.resourceGroup.extraProps.etcd}
         %{ endif }
       %{ endif }
     %{ endif }
-    %{ if lmc.argus.collector.collectorConf != null }
-    collectorConf:  
-      %{ if lmc.argus.collector.collectorConf.agentConf != null }
-      agentConf:
-        ${yamlencode(lmc.argus.collector.collectorConf.agentConf)}
+    %{ if lmc.argus.lm.opsNotes != null }
+    opsNotes:  
+      %{ if lmc.argus.lm.opsNotes.secrets != null }
+      secrets:  
+        %{ if lmc.argus.lm.opsNotes.secrets.helmCharts != null }
+        helmCharts:  
+          %{ if lmc.argus.lm.opsNotes.secrets.helmCharts.enabled != null }
+          enabled: ${lmc.argus.lm.opsNotes.secrets.helmCharts.enabled}
+          %{ endif }
+        %{ endif }
       %{ endif }
     %{ endif }
-    %{ if lmc.argus.collector.useEA != null }
-    useEA: ${lmc.argus.collector.useEA}
+    %{ if lmc.argus.lm.lmlogs != null }
+    lmlogs:  
+      %{ if lmc.argus.lm.lmlogs.k8sevent != null }
+      k8sevent: ${lmc.argus.lm.lmlogs.k8sevent}
+      %{ endif }
+      %{ if lmc.argus.lm.lmlogs.k8spodlog != null }
+      k8spodlog: ${lmc.argus.lm.lmlogs.k8spodlog}
+      %{ endif }
     %{ endif }
-    %{ if lmc.argus.collector.disableLightweightCollector != null }
-    disableLightweightCollector: ${lmc.argus.collector.disableLightweightCollector}
+    %{ if lmc.argus.lm.resource != null }
+    resource:  
+      %{ if lmc.argus.lm.resource.globalDeleteAfterDuration != null }
+      globalDeleteAfterDuration: ${lmc.argus.lm.resource.globalDeleteAfterDuration}
+      %{ endif }
+      %{ if lmc.argus.lm.resource.alerting != null }
+      alerting:  
+        %{ if lmc.argus.lm.resource.alerting.disable != null }
+        disable:
+          ${yamlencode(lmc.argus.lm.resource.alerting.disable)}
+        %{ endif }
+      %{ endif }
     %{ endif }
+  %{ endif }
+  %{ if lmc.argus.debug != null }
+  debug:  
+    %{ if lmc.argus.debug.profiling != null }
+    profiling:  
+      %{ if lmc.argus.debug.profiling.enable != null }
+      enable: ${lmc.argus.debug.profiling.enable}
+      %{ endif }
+    %{ endif }
+  %{ endif }
+  %{ if lmc.argus.serviceAccount != null }
+  serviceAccount:  
+    %{ if lmc.argus.serviceAccount.create != null }
+    create: ${lmc.argus.serviceAccount.create}
+    %{ endif }
+  %{ endif }
+  %{ if lmc.argus.priorityClassName != null }
+  priorityClassName: ${lmc.argus.priorityClassName}
+  %{ endif }
+  %{ if lmc.argus.collector != null }
+  collector:  
     %{ if lmc.argus.collector.lm != null }
     lm:  
       %{ if lmc.argus.collector.lm.groupID != null }
@@ -130,24 +100,6 @@ argus:
       %{ endif }
       %{ if lmc.argus.collector.lm.escalationChainID != null }
       escalationChainID: ${lmc.argus.collector.lm.escalationChainID}
-      %{ endif }
-    %{ endif }
-    %{ if lmc.argus.collector.image != null }
-    image:  
-      %{ if lmc.argus.collector.image.name != null }
-      name: ${lmc.argus.collector.image.name}
-      %{ endif }
-      %{ if lmc.argus.collector.image.tag != null }
-      tag: ${lmc.argus.collector.image.tag}
-      %{ endif }
-      %{ if lmc.argus.collector.image.pullPolicy != null }
-      pullPolicy: ${lmc.argus.collector.image.pullPolicy}
-      %{ endif }
-      %{ if lmc.argus.collector.image.registry != null }
-      registry: ${lmc.argus.collector.image.registry}
-      %{ endif }
-      %{ if lmc.argus.collector.image.repository != null }
-      repository: ${lmc.argus.collector.image.repository}
       %{ endif }
     %{ endif }
     %{ if lmc.argus.collector.proxy != null }
@@ -162,9 +114,51 @@ argus:
       pass: ${lmc.argus.collector.proxy.pass}
       %{ endif }
     %{ endif }
+    %{ if lmc.argus.collector.annotations != null }
+    annotations:
+      ${yamlencode(lmc.argus.collector.annotations)}
+    %{ endif }
     %{ if lmc.argus.collector.labels != null }
     labels:
       ${yamlencode(lmc.argus.collector.labels)}
+    %{ endif }
+    %{ if lmc.argus.collector.disableLightweightCollector != null }
+    disableLightweightCollector: ${lmc.argus.collector.disableLightweightCollector}
+    %{ endif }
+    %{ if lmc.argus.collector.collectorConf != null }
+    collectorConf:  
+      %{ if lmc.argus.collector.collectorConf.agentConf != null }
+      agentConf:
+        ${yamlencode(lmc.argus.collector.collectorConf.agentConf)}
+      %{ endif }
+    %{ endif }
+    %{ if lmc.argus.collector.replicas != null }
+    replicas: ${lmc.argus.collector.replicas}
+    %{ endif }
+    %{ if lmc.argus.collector.useEA != null }
+    useEA: ${lmc.argus.collector.useEA}
+    %{ endif }
+    %{ if lmc.argus.collector.image != null }
+    image:  
+      %{ if lmc.argus.collector.image.tag != null }
+      tag: ${lmc.argus.collector.image.tag}
+      %{ endif }
+      %{ if lmc.argus.collector.image.pullPolicy != null }
+      pullPolicy: ${lmc.argus.collector.image.pullPolicy}
+      %{ endif }
+      %{ if lmc.argus.collector.image.registry != null }
+      registry: ${lmc.argus.collector.image.registry}
+      %{ endif }
+      %{ if lmc.argus.collector.image.repository != null }
+      repository: ${lmc.argus.collector.image.repository}
+      %{ endif }
+      %{ if lmc.argus.collector.image.name != null }
+      name: ${lmc.argus.collector.image.name}
+      %{ endif }
+    %{ endif }
+    %{ if lmc.argus.collector.env != null }
+    env:
+      ${yamlencode(lmc.argus.collector.env)}
     %{ endif }
     %{ if lmc.argus.collector.probe != null }
     probe:  
@@ -202,54 +196,92 @@ argus:
     %{ if lmc.argus.collector.version != null }
     version: ${lmc.argus.collector.version}
     %{ endif }
+    %{ if lmc.argus.collector.statefulsetSpec != null }
+    statefulsetSpec:  
+      %{ if lmc.argus.collector.statefulsetSpec.template != null }
+      template:  
+        %{ if lmc.argus.collector.statefulsetSpec.template.spec != null }
+        spec:
+          ${yamlencode(lmc.argus.collector.statefulsetSpec.template.spec)}
+        %{ endif }
+      %{ endif }
+    %{ endif }
+    %{ if lmc.argus.collector.allowMultipleCollectorsOnNode != null }
+    allowMultipleCollectorsOnNode: ${lmc.argus.collector.allowMultipleCollectorsOnNode}
+    %{ endif }
     %{ if lmc.argus.collector.size != null }
     size: ${lmc.argus.collector.size}
     %{ endif }
   %{ endif }
-  %{ if lmc.argus.enabled != null }
-  enabled: ${lmc.argus.enabled}
+  %{ if lmc.argus.tolerations != null }
+  tolerations:
+    ${yamlencode(lmc.argus.tolerations)}
   %{ endif }
-  %{ if lmc.argus.accessKey != null }
-  accessKey: ${lmc.argus.accessKey}
-  %{ endif }
-  %{ if lmc.argus.nodeSelector != null }
-  nodeSelector:
-    ${yamlencode(lmc.argus.nodeSelector)}
-  %{ endif }
-  %{ if lmc.argus.rbac != null }
-  rbac:  
-    %{ if lmc.argus.rbac.create != null }
-    create: ${lmc.argus.rbac.create}
+  %{ if lmc.argus.image != null }
+  image:  
+    %{ if lmc.argus.image.registry != null }
+    registry: ${lmc.argus.image.registry}
+    %{ endif }
+    %{ if lmc.argus.image.repository != null }
+    repository: ${lmc.argus.image.repository}
+    %{ endif }
+    %{ if lmc.argus.image.name != null }
+    name: ${lmc.argus.image.name}
+    %{ endif }
+    %{ if lmc.argus.image.pullPolicy != null }
+    pullPolicy: ${lmc.argus.image.pullPolicy}
+    %{ endif }
+    %{ if lmc.argus.image.tag != null }
+    tag: ${lmc.argus.image.tag}
     %{ endif }
   %{ endif }
-  %{ if lmc.argus.labels != null }
-  labels:
-    ${yamlencode(lmc.argus.labels)}
-  %{ endif }
-  %{ if lmc.argus.annotations != null }
-  annotations:
-    ${yamlencode(lmc.argus.annotations)}
+  %{ if lmc.argus.resourceContainerID != null }
+  resourceContainerID: ${lmc.argus.resourceContainerID}
   %{ endif }
   %{ if lmc.argus.collectorsetcontroller != null }
   collectorsetcontroller:  
-    %{ if lmc.argus.collectorsetcontroller.port != null }
-    port: ${lmc.argus.collectorsetcontroller.port}
-    %{ endif }
     %{ if lmc.argus.collectorsetcontroller.address != null }
     address: ${lmc.argus.collectorsetcontroller.address}
     %{ endif }
-  %{ endif }
-  %{ if lmc.argus.ignoreSSL != null }
-  ignoreSSL: ${lmc.argus.ignoreSSL}
-  %{ endif }
-  %{ if lmc.argus.overview != null }
-  overview:  
-    %{ if lmc.argus.overview.enable != null }
-    enable: ${lmc.argus.overview.enable}
+    %{ if lmc.argus.collectorsetcontroller.port != null }
+    port: ${lmc.argus.collectorsetcontroller.port}
     %{ endif }
-    %{ if lmc.argus.overview.duration != null }
-    duration: ${lmc.argus.overview.duration}
+  %{ endif }
+  %{ if lmc.argus.fullnameOverride != null }
+  fullnameOverride: ${lmc.argus.fullnameOverride}
+  %{ endif }
+  %{ if lmc.argus.clusterTreeParentID != null }
+  clusterTreeParentID: ${lmc.argus.clusterTreeParentID}
+  %{ endif }
+  %{ if lmc.argus.resources != null }
+  resources:  
+    %{ if lmc.argus.resources.limits != null }
+    limits:
+      ${yamlencode(lmc.argus.resources.limits)}
     %{ endif }
+    %{ if lmc.argus.resources.requests != null }
+    requests:
+      ${yamlencode(lmc.argus.resources.requests)}
+    %{ endif }
+  %{ endif }
+  %{ if lmc.argus.proxy != null }
+  proxy:  
+    %{ if lmc.argus.proxy.user != null }
+    user: ${lmc.argus.proxy.user}
+    %{ endif }
+    %{ if lmc.argus.proxy.pass != null }
+    pass: ${lmc.argus.proxy.pass}
+    %{ endif }
+    %{ if lmc.argus.proxy.url != null }
+    url: ${lmc.argus.proxy.url}
+    %{ endif }
+  %{ endif }
+  %{ if lmc.argus.affinity != null }
+  affinity:
+    ${yamlencode(lmc.argus.affinity)}
+  %{ endif }
+  %{ if lmc.argus.accessKey != null }
+  accessKey: ${lmc.argus.accessKey}
   %{ endif }
   %{ if lmc.argus.probe != null }
   probe:  
@@ -258,11 +290,11 @@ argus:
     %{ endif }
     %{ if lmc.argus.probe.startup != null }
     startup:  
-      %{ if lmc.argus.probe.startup.periodSeconds != null }
-      periodSeconds: ${lmc.argus.probe.startup.periodSeconds}
-      %{ endif }
       %{ if lmc.argus.probe.startup.failureThreshold != null }
       failureThreshold: ${lmc.argus.probe.startup.failureThreshold}
+      %{ endif }
+      %{ if lmc.argus.probe.startup.periodSeconds != null }
+      periodSeconds: ${lmc.argus.probe.startup.periodSeconds}
       %{ endif }
     %{ endif }
     %{ if lmc.argus.probe.liveness != null }
@@ -284,9 +316,82 @@ argus:
       %{ endif }
     %{ endif }
   %{ endif }
-  %{ if lmc.argus.tolerations != null }
-  tolerations:
-    ${yamlencode(lmc.argus.tolerations)}
+  %{ if lmc.argus.labels != null }
+  labels:
+    ${yamlencode(lmc.argus.labels)}
+  %{ endif }
+  %{ if lmc.argus.enableLegacyResourceTree != null }
+  enableLegacyResourceTree: ${lmc.argus.enableLegacyResourceTree}
+  %{ endif }
+  %{ if lmc.argus.ignoreSSL != null }
+  ignoreSSL: ${lmc.argus.ignoreSSL}
+  %{ endif }
+  %{ if lmc.argus.daemons != null }
+  daemons:  
+    %{ if lmc.argus.daemons.lmResourceSweeper != null }
+    lmResourceSweeper:  
+      %{ if lmc.argus.daemons.lmResourceSweeper.interval != null }
+      interval: ${lmc.argus.daemons.lmResourceSweeper.interval}
+      %{ endif }
+    %{ endif }
+    %{ if lmc.argus.daemons.lmCacheSync != null }
+    lmCacheSync:  
+      %{ if lmc.argus.daemons.lmCacheSync.interval != null }
+      interval: ${lmc.argus.daemons.lmCacheSync.interval}
+      %{ endif }
+    %{ endif }
+    %{ if lmc.argus.daemons.worker != null }
+    worker:  
+      %{ if lmc.argus.daemons.worker.poolSize != null }
+      poolSize: ${lmc.argus.daemons.worker.poolSize}
+      %{ endif }
+    %{ endif }
+    %{ if lmc.argus.daemons.watcher != null }
+    watcher:  
+      %{ if lmc.argus.daemons.watcher.sysIpsWaitTimeout != null }
+      sysIpsWaitTimeout: ${lmc.argus.daemons.watcher.sysIpsWaitTimeout}
+      %{ endif }
+      %{ if lmc.argus.daemons.watcher.bulkSyncInterval != null }
+      bulkSyncInterval: ${lmc.argus.daemons.watcher.bulkSyncInterval}
+      %{ endif }
+      %{ if lmc.argus.daemons.watcher.runner != null }
+      runner:  
+        %{ if lmc.argus.daemons.watcher.runner.poolSize != null }
+        poolSize: ${lmc.argus.daemons.watcher.runner.poolSize}
+        %{ endif }
+        %{ if lmc.argus.daemons.watcher.runner.backPressureQueueSizePerRunner != null }
+        backPressureQueueSizePerRunner: ${lmc.argus.daemons.watcher.runner.backPressureQueueSizePerRunner}
+        %{ endif }
+      %{ endif }
+    %{ endif }
+  %{ endif }
+  %{ if lmc.argus.filters != null }
+  filters:
+    ${yamlencode(lmc.argus.filters)}
+  %{ endif }
+  %{ if lmc.argus.overview != null }
+  overview:  
+    %{ if lmc.argus.overview.enable != null }
+    enable: ${lmc.argus.overview.enable}
+    %{ endif }
+    %{ if lmc.argus.overview.duration != null }
+    duration: ${lmc.argus.overview.duration}
+    %{ endif }
+  %{ endif }
+  clusterName:   ${lmc.argus.clusterName}
+  %{ if lmc.argus.accessID != null }
+  accessID: ${lmc.argus.accessID}
+  %{ endif }
+  %{ if lmc.argus.account != null }
+  account: ${lmc.argus.account}
+  %{ endif }
+  %{ if lmc.argus.nodeSelector != null }
+  nodeSelector:
+    ${yamlencode(lmc.argus.nodeSelector)}
+  %{ endif }
+  %{ if lmc.argus.annotations != null }
+  annotations:
+    ${yamlencode(lmc.argus.annotations)}
   %{ endif }
   %{ if lmc.argus.log != null }
   log:  
@@ -294,194 +399,35 @@ argus:
     level: ${lmc.argus.log.level}
     %{ endif }
   %{ endif }
-  %{ if lmc.argus.debug != null }
-  debug:  
-    %{ if lmc.argus.debug.profiling != null }
-    profiling:  
-      %{ if lmc.argus.debug.profiling.enable != null }
-      enable: ${lmc.argus.debug.profiling.enable}
-      %{ endif }
+  %{ if lmc.argus.selfMonitor != null }
+  selfMonitor:  
+    %{ if lmc.argus.selfMonitor.enable != null }
+    enable: ${lmc.argus.selfMonitor.enable}
+    %{ endif }
+    %{ if lmc.argus.selfMonitor.port != null }
+    port: ${lmc.argus.selfMonitor.port}
     %{ endif }
   %{ endif }
   %{ if lmc.argus.nameOverride != null }
   nameOverride: ${lmc.argus.nameOverride}
   %{ endif }
-  %{ if lmc.argus.clusterTreeParentID != null }
-  clusterTreeParentID: ${lmc.argus.clusterTreeParentID}
-  %{ endif }
-  %{ if lmc.argus.enableLegacyResourceTree != null }
-  enableLegacyResourceTree: ${lmc.argus.enableLegacyResourceTree}
-  %{ endif }
-  %{ if lmc.argus.image != null }
-  image:  
-    %{ if lmc.argus.image.name != null }
-    name: ${lmc.argus.image.name}
-    %{ endif }
-    %{ if lmc.argus.image.pullPolicy != null }
-    pullPolicy: ${lmc.argus.image.pullPolicy}
-    %{ endif }
-    %{ if lmc.argus.image.tag != null }
-    tag: ${lmc.argus.image.tag}
-    %{ endif }
-    %{ if lmc.argus.image.registry != null }
-    registry: ${lmc.argus.image.registry}
-    %{ endif }
-    %{ if lmc.argus.image.repository != null }
-    repository: ${lmc.argus.image.repository}
-    %{ endif }
-  %{ endif }
-  %{ if lmc.argus.lm != null }
-  lm:  
-    %{ if lmc.argus.lm.opsNotes != null }
-    opsNotes:  
-      %{ if lmc.argus.lm.opsNotes.secrets != null }
-      secrets:  
-        %{ if lmc.argus.lm.opsNotes.secrets.helmCharts != null }
-        helmCharts:  
-          %{ if lmc.argus.lm.opsNotes.secrets.helmCharts.enabled != null }
-          enabled: ${lmc.argus.lm.opsNotes.secrets.helmCharts.enabled}
-          %{ endif }
-        %{ endif }
-      %{ endif }
-    %{ endif }
-    %{ if lmc.argus.lm.lmlogs != null }
-    lmlogs:  
-      %{ if lmc.argus.lm.lmlogs.k8sevent != null }
-      k8sevent: ${lmc.argus.lm.lmlogs.k8sevent}
-      %{ endif }
-      %{ if lmc.argus.lm.lmlogs.k8spodlog != null }
-      k8spodlog: ${lmc.argus.lm.lmlogs.k8spodlog}
-      %{ endif }
-    %{ endif }
-    %{ if lmc.argus.lm.resource != null }
-    resource:  
-      %{ if lmc.argus.lm.resource.globalDeleteAfterDuration != null }
-      globalDeleteAfterDuration: ${lmc.argus.lm.resource.globalDeleteAfterDuration}
-      %{ endif }
-      %{ if lmc.argus.lm.resource.alerting != null }
-      alerting:  
-        %{ if lmc.argus.lm.resource.alerting.disable != null }
-        disable:
-          ${yamlencode(lmc.argus.lm.resource.alerting.disable)}
-        %{ endif }
-      %{ endif }
-    %{ endif }
-    %{ if lmc.argus.lm.resourceGroup != null }
-    resourceGroup:  
-      %{ if lmc.argus.lm.resourceGroup.extraProps != null }
-      extraProps:  
-        %{ if lmc.argus.lm.resourceGroup.extraProps.nodes != null }
-        nodes: ${lmc.argus.lm.resourceGroup.extraProps.nodes}
-        %{ endif }
-        %{ if lmc.argus.lm.resourceGroup.extraProps.etcd != null }
-        etcd: ${lmc.argus.lm.resourceGroup.extraProps.etcd}
-        %{ endif }
-        %{ if lmc.argus.lm.resourceGroup.extraProps.cluster != null }
-        cluster: ${lmc.argus.lm.resourceGroup.extraProps.cluster}
-        %{ endif }
-      %{ endif }
-    %{ endif }
-  %{ endif }
-  %{ if lmc.argus.serviceAccount != null }
-  serviceAccount:  
-    %{ if lmc.argus.serviceAccount.create != null }
-    create: ${lmc.argus.serviceAccount.create}
-    %{ endif }
-  %{ endif }
-  %{ if lmc.argus.affinity != null }
-  affinity:
-    ${yamlencode(lmc.argus.affinity)}
-  %{ endif }
-  %{ if lmc.argus.resourceContainerID != null }
-  resourceContainerID: ${lmc.argus.resourceContainerID}
-  %{ endif }
-  %{ if lmc.argus.proxy != null }
-  proxy:  
-    %{ if lmc.argus.proxy.url != null }
-    url: ${lmc.argus.proxy.url}
-    %{ endif }
-    %{ if lmc.argus.proxy.user != null }
-    user: ${lmc.argus.proxy.user}
-    %{ endif }
-    %{ if lmc.argus.proxy.pass != null }
-    pass: ${lmc.argus.proxy.pass}
-    %{ endif }
-  %{ endif }
-  %{ if lmc.argus.accessID != null }
-  accessID: ${lmc.argus.accessID}
-  %{ endif }
-  %{ if lmc.argus.filters != null }
-  filters:
-    ${yamlencode(lmc.argus.filters)}
-  %{ endif }
-  %{ if lmc.argus.fullnameOverride != null }
-  fullnameOverride: ${lmc.argus.fullnameOverride}
+  %{ if lmc.argus.enabled != null }
+  enabled: ${lmc.argus.enabled}
   %{ endif }
   %{ if lmc.argus.imagePullSecrets != null }
   imagePullSecrets:
     ${yamlencode(lmc.argus.imagePullSecrets)}
   %{ endif }
-  %{ if lmc.argus.priorityClassName != null }
-  priorityClassName: ${lmc.argus.priorityClassName}
+  %{ if lmc.argus.rbac != null }
+  rbac:  
+    %{ if lmc.argus.rbac.create != null }
+    create: ${lmc.argus.rbac.create}
+    %{ endif }
   %{ endif }
 %{ if lmc.collectorset-controller != null }
 collectorset-controller:  
-  %{ if lmc.collectorset-controller.enabled != null }
-  enabled: ${lmc.collectorset-controller.enabled}
-  %{ endif }
-  %{ if lmc.collectorset-controller.rbac != null }
-  rbac:  
-    %{ if lmc.collectorset-controller.rbac.create != null }
-    create: ${lmc.collectorset-controller.rbac.create}
-    %{ endif }
-  %{ endif }
-  %{ if lmc.collectorset-controller.image != null }
-  image:  
-    %{ if lmc.collectorset-controller.image.pullPolicy != null }
-    pullPolicy: ${lmc.collectorset-controller.image.pullPolicy}
-    %{ endif }
-    %{ if lmc.collectorset-controller.image.tag != null }
-    tag: ${lmc.collectorset-controller.image.tag}
-    %{ endif }
-    %{ if lmc.collectorset-controller.image.registry != null }
-    registry: ${lmc.collectorset-controller.image.registry}
-    %{ endif }
-    %{ if lmc.collectorset-controller.image.repository != null }
-    repository: ${lmc.collectorset-controller.image.repository}
-    %{ endif }
-    %{ if lmc.collectorset-controller.image.name != null }
-    name: ${lmc.collectorset-controller.image.name}
-    %{ endif }
-  %{ endif }
-  %{ if lmc.collectorset-controller.accessID != null }
-  accessID: ${lmc.collectorset-controller.accessID}
-  %{ endif }
-  %{ if lmc.collectorset-controller.nameOverride != null }
-  nameOverride: ${lmc.collectorset-controller.nameOverride}
-  %{ endif }
-  %{ if lmc.collectorset-controller.proxy != null }
-  proxy:  
-    %{ if lmc.collectorset-controller.proxy.url != null }
-    url: ${lmc.collectorset-controller.proxy.url}
-    %{ endif }
-    %{ if lmc.collectorset-controller.proxy.user != null }
-    user: ${lmc.collectorset-controller.proxy.user}
-    %{ endif }
-    %{ if lmc.collectorset-controller.proxy.pass != null }
-    pass: ${lmc.collectorset-controller.proxy.pass}
-    %{ endif }
-  %{ endif }
-  %{ if lmc.collectorset-controller.labels != null }
-  labels:
-    ${yamlencode(lmc.collectorset-controller.labels)}
-  %{ endif }
-  %{ if lmc.collectorset-controller.nodeSelector != null }
-  nodeSelector:
-    ${yamlencode(lmc.collectorset-controller.nodeSelector)}
-  %{ endif }
-  %{ if lmc.collectorset-controller.annotations != null }
-  annotations:
-    ${yamlencode(lmc.collectorset-controller.annotations)}
+  %{ if lmc.collectorset-controller.ignoreSSL != null }
+  ignoreSSL: ${lmc.collectorset-controller.ignoreSSL}
   %{ endif }
   %{ if lmc.collectorset-controller.account != null }
   account: ${lmc.collectorset-controller.account}
@@ -492,14 +438,29 @@ collectorset-controller:
     level: ${lmc.collectorset-controller.log.level}
     %{ endif }
   %{ endif }
-  %{ if lmc.collectorset-controller.fullnameOverride != null }
-  fullnameOverride: ${lmc.collectorset-controller.fullnameOverride}
-  %{ endif }
   %{ if lmc.collectorset-controller.serviceAccount != null }
   serviceAccount:  
     %{ if lmc.collectorset-controller.serviceAccount.create != null }
     create: ${lmc.collectorset-controller.serviceAccount.create}
     %{ endif }
+  %{ endif }
+  %{ if lmc.collectorset-controller.tolerations != null }
+  tolerations:
+    ${yamlencode(lmc.collectorset-controller.tolerations)}
+  %{ endif }
+  %{ if lmc.collectorset-controller.labels != null }
+  labels:
+    ${yamlencode(lmc.collectorset-controller.labels)}
+  %{ endif }
+  %{ if lmc.collectorset-controller.enabled != null }
+  enabled: ${lmc.collectorset-controller.enabled}
+  %{ endif }
+  %{ if lmc.collectorset-controller.accessID != null }
+  accessID: ${lmc.collectorset-controller.accessID}
+  %{ endif }
+  %{ if lmc.collectorset-controller.affinity != null }
+  affinity:
+    ${yamlencode(lmc.collectorset-controller.affinity)}
   %{ endif }
   %{ if lmc.collectorset-controller.resources != null }
   resources:  
@@ -512,31 +473,73 @@ collectorset-controller:
       ${yamlencode(lmc.collectorset-controller.resources.requests)}
     %{ endif }
   %{ endif }
-  %{ if lmc.collectorset-controller.ignoreSSL != null }
-  ignoreSSL: ${lmc.collectorset-controller.ignoreSSL}
+  %{ if lmc.collectorset-controller.nodeSelector != null }
+  nodeSelector:
+    ${yamlencode(lmc.collectorset-controller.nodeSelector)}
+  %{ endif }
+  %{ if lmc.collectorset-controller.annotations != null }
+  annotations:
+    ${yamlencode(lmc.collectorset-controller.annotations)}
   %{ endif }
   %{ if lmc.collectorset-controller.accessKey != null }
   accessKey: ${lmc.collectorset-controller.accessKey}
   %{ endif }
-  %{ if lmc.collectorset-controller.affinity != null }
-  affinity:
-    ${yamlencode(lmc.collectorset-controller.affinity)}
+  %{ if lmc.collectorset-controller.nameOverride != null }
+  nameOverride: ${lmc.collectorset-controller.nameOverride}
+  %{ endif }
+  %{ if lmc.collectorset-controller.fullnameOverride != null }
+  fullnameOverride: ${lmc.collectorset-controller.fullnameOverride}
+  %{ endif }
+  %{ if lmc.collectorset-controller.image != null }
+  image:  
+    %{ if lmc.collectorset-controller.image.registry != null }
+    registry: ${lmc.collectorset-controller.image.registry}
+    %{ endif }
+    %{ if lmc.collectorset-controller.image.repository != null }
+    repository: ${lmc.collectorset-controller.image.repository}
+    %{ endif }
+    %{ if lmc.collectorset-controller.image.name != null }
+    name: ${lmc.collectorset-controller.image.name}
+    %{ endif }
+    %{ if lmc.collectorset-controller.image.pullPolicy != null }
+    pullPolicy: ${lmc.collectorset-controller.image.pullPolicy}
+    %{ endif }
+    %{ if lmc.collectorset-controller.image.tag != null }
+    tag: ${lmc.collectorset-controller.image.tag}
+    %{ endif }
+  %{ endif }
+  %{ if lmc.collectorset-controller.proxy != null }
+  proxy:  
+    %{ if lmc.collectorset-controller.proxy.user != null }
+    user: ${lmc.collectorset-controller.proxy.user}
+    %{ endif }
+    %{ if lmc.collectorset-controller.proxy.pass != null }
+    pass: ${lmc.collectorset-controller.proxy.pass}
+    %{ endif }
+    %{ if lmc.collectorset-controller.proxy.url != null }
+    url: ${lmc.collectorset-controller.proxy.url}
+    %{ endif }
+  %{ endif }
+  %{ if lmc.collectorset-controller.rbac != null }
+  rbac:  
+    %{ if lmc.collectorset-controller.rbac.create != null }
+    create: ${lmc.collectorset-controller.rbac.create}
+    %{ endif }
   %{ endif }
   %{ if lmc.collectorset-controller.priorityClassName != null }
   priorityClassName: ${lmc.collectorset-controller.priorityClassName}
   %{ endif }
-  %{ if lmc.collectorset-controller.tolerations != null }
-  tolerations:
-    ${yamlencode(lmc.collectorset-controller.tolerations)}
-  %{ endif }
 %{ endif }
 lm-logs:  
-  %{ if lmc.lm-logs.labels != null }
-  labels:
-    ${yamlencode(lmc.lm-logs.labels)}
+  %{ if lmc.lm-logs.affinity != null }
+  affinity:
+    ${yamlencode(lmc.lm-logs.affinity)}
   %{ endif }
-  %{ if lmc.lm-logs.fullnameOverride != null }
-  fullnameOverride: ${lmc.lm-logs.fullnameOverride}
+  %{ if lmc.lm-logs.lm_company_name != null }
+  lm_company_name: ${lmc.lm-logs.lm_company_name}
+  %{ endif }
+  %{ if lmc.lm-logs.nameOverride != null }
+  nameOverride: ${lmc.lm-logs.nameOverride}
   %{ endif }
   %{ if lmc.lm-logs.env != null }
   env:
@@ -553,18 +556,6 @@ lm-logs:
       ${yamlencode(lmc.lm-logs.resources.requests)}
     %{ endif }
   %{ endif }
-  %{ if lmc.lm-logs.nodeSelector != null }
-  nodeSelector:
-    ${yamlencode(lmc.lm-logs.nodeSelector)}
-  %{ endif }
-  %{ if lmc.lm-logs.affinity != null }
-  affinity:
-    ${yamlencode(lmc.lm-logs.affinity)}
-  %{ endif }
-  clusterName:   ${lmc.lm-logs.clusterName}
-  %{ if lmc.lm-logs.lm_access_key != null }
-  lm_access_key: ${lmc.lm-logs.lm_access_key}
-  %{ endif }
   image:  
     %{ if lmc.lm-logs.image.repository != null }
     repository: ${lmc.lm-logs.image.repository}
@@ -575,42 +566,51 @@ lm-logs:
     %{ if lmc.lm-logs.image.tag != null }
     tag: ${lmc.lm-logs.image.tag}
     %{ endif }
+  %{ if lmc.lm-logs.nodeSelector != null }
+  nodeSelector:
+    ${yamlencode(lmc.lm-logs.nodeSelector)}
+  %{ endif }
   %{ if lmc.lm-logs.lm_access_id != null }
   lm_access_id: ${lmc.lm-logs.lm_access_id}
   %{ endif }
+  clusterName:   ${lmc.lm-logs.clusterName}
   %{ if lmc.lm-logs.enabled != null }
   enabled: ${lmc.lm-logs.enabled}
+  %{ endif }
+  %{ if lmc.lm-logs.lm_access_key != null }
+  lm_access_key: ${lmc.lm-logs.lm_access_key}
+  %{ endif }
+  %{ if lmc.lm-logs.labels != null }
+  labels:
+    ${yamlencode(lmc.lm-logs.labels)}
   %{ endif }
   %{ if lmc.lm-logs.annotations != null }
   annotations:
     ${yamlencode(lmc.lm-logs.annotations)}
   %{ endif }
-  %{ if lmc.lm-logs.nameOverride != null }
-  nameOverride: ${lmc.lm-logs.nameOverride}
-  %{ endif }
-  %{ if lmc.lm-logs.lm_company_name != null }
-  lm_company_name: ${lmc.lm-logs.lm_company_name}
+  %{ if lmc.lm-logs.fullnameOverride != null }
+  fullnameOverride: ${lmc.lm-logs.fullnameOverride}
   %{ endif }
 %{ if lmc.global != null }
 global:  
-  %{ if lmc.global.accessKey != null }
-  accessKey: ${lmc.global.accessKey}
+  %{ if lmc.global.collectorsetServiceNameSuffix != null }
+  collectorsetServiceNameSuffix: ${lmc.global.collectorsetServiceNameSuffix}
   %{ endif }
+  clusterName:   ${lmc.global.clusterName}
   %{ if lmc.global.account != null }
   account: ${lmc.global.account}
   %{ endif }
-  clusterName:   ${lmc.global.clusterName}
-  %{ if lmc.global.accessID != null }
-  accessID: ${lmc.global.accessID}
-  %{ endif }
-  %{ if lmc.global.userDefinedSecret != null }
-  userDefinedSecret: ${lmc.global.userDefinedSecret}
+  %{ if lmc.global.accessKey != null }
+  accessKey: ${lmc.global.accessKey}
   %{ endif }
   image:  
     %{ if lmc.global.image.repository != null }
     repository: ${lmc.global.image.repository}
     %{ endif }
-  %{ if lmc.global.collectorsetServiceNameSuffix != null }
-  collectorsetServiceNameSuffix: ${lmc.global.collectorsetServiceNameSuffix}
+  %{ if lmc.global.accessID != null }
+  accessID: ${lmc.global.accessID}
+  %{ endif }
+  %{ if lmc.global.userDefinedSecret != null }
+  userDefinedSecret: ${lmc.global.userDefinedSecret}
   %{ endif }
 %{ endif }
